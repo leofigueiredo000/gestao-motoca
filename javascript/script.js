@@ -8,23 +8,26 @@ let filtrosAtivos = {
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("btnAdicionarEntrega").onclick = adicionarEntrega;
-  document.getElementById("btnAdicionarMotoqueiro").onclick =
-    adicionarMotoqueiro;
+  document.getElementById("btnAdicionarMotoqueiro").onclick = adicionarMotoqueiro;
   document.getElementById("btnLimparTudo").onclick = limparTudo;
   document.getElementById("btnAplicarFiltros").onclick = aplicarFiltros;
   document.getElementById("btnLimparFiltros").onclick = limparFiltros;
 
-  // Setar hora atual como padrão
+  // Atualizar o campo de hora da entrega automaticamente
+  setInterval(atualizarHoraEntrega, 1000);
+
+  carregarDados();
+  renderizar();
+});
+
+function atualizarHoraEntrega() {
   const now = new Date();
   const timeString =
     now.getHours().toString().padStart(2, "0") +
     ":" +
     now.getMinutes().toString().padStart(2, "0");
   document.getElementById("horaEntrega").value = timeString;
-
-  carregarDados();
-  renderizar();
-});
+}
 
 function allowDrop(ev) {
   ev.preventDefault();

@@ -108,9 +108,10 @@ button:hover {
   padding: 10px;
   border-radius: 8px;
   cursor: grab;
-  user-select: none; /* Padrão */
+   /* Padrão */
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
