@@ -46,6 +46,12 @@
         <input type="checkbox" id="estaPago" /> Pago
       </label>
 
+      <label for="plataformaEntrega">Plataforma:</label>
+      <select id="plataformaEntrega" title="Plataforma da Entrega">
+        <option value="iFood">iFood</option>
+        <option value="Loja">Loja</option>
+      </select>
+
       <button id="btnAdicionarEntrega">Adicionar Entrega</button>
       <button id="btnAdicionarMotoqueiro">Adicionar Motoqueiro</button>
       <button id="btnLimparTudo">Limpar Tudo</button>
@@ -72,6 +78,13 @@
         <option value="todos">Todos</option>
         <option value="pago">Pago</option>
         <option value="nao-pago">Não pago</option>
+      </select>
+
+      <label for="filtroPlataforma">Filtrar por Plataforma:</label>
+      <select id="filtroPlataforma" title="Filtrar por Plataforma">
+        <option value="todas">Todas</option>
+        <option value="iFood">iFood</option>
+        <option value="Loja">Loja</option>
       </select>
 
       <button id="btnAplicarFiltros">Aplicar Filtros</button>

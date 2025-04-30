@@ -4,30 +4,28 @@ let filtrosAtivos = {
   status: "todos",
   pagamento: "todos",
   pago: "todos",
+  plataforma: "todas",
 };
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("btnAdicionarEntrega").onclick = adicionarEntrega;
-  document.getElementById("btnAdicionarMotoqueiro").onclick = adicionarMotoqueiro;
+  document.getElementById("btnAdicionarMotoqueiro").onclick =
+    adicionarMotoqueiro;
   document.getElementById("btnLimparTudo").onclick = limparTudo;
   document.getElementById("btnAplicarFiltros").onclick = aplicarFiltros;
   document.getElementById("btnLimparFiltros").onclick = limparFiltros;
 
-  // Atualizar o campo de hora da entrega automaticamente
-  setInterval(atualizarHoraEntrega, 1000);
-
-  carregarDados();
-  renderizar();
-});
-
-function atualizarHoraEntrega() {
+  // Setar hora atual como padrão
   const now = new Date();
   const timeString =
     now.getHours().toString().padStart(2, "0") +
     ":" +
     now.getMinutes().toString().padStart(2, "0");
   document.getElementById("horaEntrega").value = timeString;
-}
+
+  carregarDados();
+  renderizar();
+});
 
 function allowDrop(ev) {
   ev.preventDefault();
@@ -65,6 +63,7 @@ function adicionarEntrega() {
   const forma = document.getElementById("formaPagamento").value;
   const status = document.getElementById("statusEntrega").value;
   const hora = document.getElementById("horaEntrega").value;
+  const plataforma = document.getElementById("plataformaEntrega").value; // Obtém a plataforma selecionada
   const pago = document.getElementById("estaPago").checked;
   const texto = input.value.trim();
   const valor = parseFloat(valorInput.value) || 0;
@@ -77,6 +76,7 @@ function adicionarEntrega() {
       formaPagamento: forma,
       status: status,
       hora: hora,
+      plataforma: plataforma, // Adiciona a plataforma
       estaPago: pago,
       destino: "entregas",
     });
@@ -84,10 +84,13 @@ function adicionarEntrega() {
     // Limpar campos
     input.value = "";
     valorInput.value = "";
+    document.getElementById("plataformaEntrega").value = "iFood"; // Reseta para o valor padrão
     document.getElementById("estaPago").checked = false;
 
     salvarDados();
     renderizar();
+  } else {
+    alert("Por favor, preencha todos os campos obrigatórios.");
   }
 }
 
@@ -107,16 +110,33 @@ function atualizarEntregaNoArray(idEntrega, novoDestino) {
 
 function atualizarBadgesETotais() {
   motoqueiros.forEach((m) => {
-    const entregasMoto = entregas.filter((e) => e.destino === m.id);
+    // Filtra as entregas do motoqueiro com base nos filtros ativos
+    const entregasMotoFiltradas = filtrarEntregas(
+      entregas.filter((e) => e.destino === m.id)
+    );
+
     const badge = document.querySelector(`#${m.id} .badge`);
     const total = document.querySelector(`#${m.id} .total`);
 
-    if (badge) badge.textContent = entregasMoto.length;
+    if (badge) badge.textContent = entregasMotoFiltradas.length;
     if (total) {
-      const valorTotal = entregasMoto.reduce((sum, e) => sum + e.valor, 0);
+      const valorTotal = entregasMotoFiltradas.reduce((sum, e) => sum + e.valor, 0);
       total.textContent = `R$ ${valorTotal.toFixed(2)}`;
     }
   });
+
+  // Atualiza o total geral das entregas disponíveis
+  const entregasDisponiveisFiltradas = filtrarEntregas(
+    entregas.filter((e) => e.destino === "entregas")
+  );
+  const totalDisponiveis = entregasDisponiveisFiltradas.reduce(
+    (sum, e) => sum + e.valor,
+    0
+  );
+  const totalDisponiveisElement = document.querySelector("#entregas .total");
+  if (totalDisponiveisElement) {
+    totalDisponiveisElement.textContent = `R$ ${totalDisponiveis.toFixed(2)}`;
+  }
 }
 
 function salvarDados() {
@@ -176,6 +196,7 @@ function editarEntrega(id) {
     document.getElementById("formaPagamento").value = entrega.formaPagamento;
     document.getElementById("statusEntrega").value = entrega.status;
     document.getElementById("horaEntrega").value = entrega.hora;
+    document.getElementById("plataformaEntrega").value = entrega.plataforma; // Preenche a plataforma
     document.getElementById("estaPago").checked = entrega.estaPago;
 
     // Remover a entrega antiga
@@ -191,6 +212,7 @@ function aplicarFiltros() {
     status: document.getElementById("filtroStatus").value,
     pagamento: document.getElementById("filtroPagamento").value,
     pago: document.getElementById("filtroPago").value,
+    plataforma: document.getElementById("filtroPlataforma").value, // Adiciona o filtro de plataforma
   };
   renderizar();
 }
@@ -199,10 +221,12 @@ function limparFiltros() {
   document.getElementById("filtroStatus").value = "todos";
   document.getElementById("filtroPagamento").value = "todos";
   document.getElementById("filtroPago").value = "todos";
+  document.getElementById("filtroPlataforma").value = "todas"; // Limpa o filtro de plataforma
   filtrosAtivos = {
     status: "todos",
     pagamento: "todos",
     pago: "todos",
+    plataforma: "todas",
   };
   renderizar();
 }
@@ -218,8 +242,11 @@ function filtrarEntregas(entregas) {
       filtrosAtivos.pago === "todos" ||
       (filtrosAtivos.pago === "pago" && e.estaPago) ||
       (filtrosAtivos.pago === "nao-pago" && !e.estaPago);
+    const plataformaMatch =
+      filtrosAtivos.plataforma === "todas" ||
+      e.plataforma === filtrosAtivos.plataforma;
 
-    return statusMatch && pagamentoMatch && pagoMatch;
+    return statusMatch && pagamentoMatch && pagoMatch && plataformaMatch;
   });
 }
 
@@ -283,9 +310,9 @@ function renderizar() {
     const badgeElement = motoqueiro.querySelector(".badge");
     const totalElement = motoqueiro.querySelector(".total");
 
-    if (badgeElement) badgeElement.textContent = entregasMotoqueiro.length;
+    if (badgeElement) badgeElement.textContent = entregasMotoFiltradas.length;
     if (totalElement) {
-      const valorTotal = entregasMotoqueiro.reduce(
+      const valorTotal = entregasMotoFiltradas.reduce(
         (sum, e) => sum + e.valor,
         0
       );
@@ -312,7 +339,7 @@ function criarElementoEntrega(e) {
     <div class="valor">R$ ${e.valor.toFixed(2)}</div>
     <small>${e.formaPagamento === "Dinheiro" ? "💵 Dinheiro" : "💳 Cartão"} • ${
     e.hora
-  }</small>
+  } • ${e.plataforma}</small>
     <span class="status-badge ${e.status}">${getStatusText(e.status)}</span>
   `;
 
