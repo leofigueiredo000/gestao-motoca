@@ -1,0 +1,252 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+input[type='text'],
+select,
+.nome-motoqueiro,
+input[type='time'],
+input[type='number'] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 250px;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.entregas,
+.motoqueiro {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  width: 300px;
+  min-height: 250px;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.motoqueiro:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.entregas h3 {
+  text-align: center;
+  color: #555;
+  margin: 0 0 10px 0;
+}
+
+.nome-motoqueiro {
+  text-align: center;
+  border: none;
+  background: none;
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
+  width: 100%;
+}
+
+.nome-motoqueiro:focus {
+  background-color: #e0f7fa;
+  outline: none;
+  border-bottom: 2px solid #007bff;
+}
+
+.entrega {
+  background-color: #e0f7fa;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: grab;
+  user-select: none; /* Padrão */
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  transition: transform 0.2s, opacity 0.2s;
+  width: 120px; /* Define uma largura fixa para cada entrega */
+  min-height: 50px; /* Define uma altura mínima para cada entrega */
+}
+
+.entrega.dragging {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+
+.pago {
+  color: green;
+  font-weight: bold;
+}
+
+.nao-pago {
+  color: red;
+  font-weight: bold;
+}
+
+.dinheiro {
+  background-color: #c8e6c9;
+}
+
+.cartao {
+  background-color: #bbdefb;
+}
+
+.badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ff5722;
+  color: white;
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-size: 12px;
+}
+
+.total {
+  position: absolute;
+  top: 40px;
+  right: 10px;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-size: 12px;
+}
+
+.botao-deletar {
+  background-color: #dc3545;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 8px;
+}
+
+.botao-deletar:hover {
+  background-color: #b02a37;
+}
+
+.entrega-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.entrega-actions {
+  display: flex;
+  gap: 5px;
+}
+
+.btn-editar {
+  background-color: #ffc107;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.btn-editar:hover {
+  background-color: #e0a800;
+}
+
+.status-badge {
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: bold;
+  margin-top: 3px;
+  display: inline-block;
+}
+
+.pendente {
+  background-color: #ff9800;
+  color: white;
+}
+
+.andamento {
+  background-color: #2196f3;
+  color: white;
+}
+
+.concluida {
+  background-color: #4caf50;
+  color: white;
+}
+
+.valor {
+  font-weight: bold;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .controls,
+  .filters {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  input[type='text'],
+  select,
+  .nome-motoqueiro,
+  input[type='time'],
+  input[type='number'] {
+    width: 100%;
+  }
+
+  .entregas,
+  .motoqueiro {
+    width: 100%;
+  }
+}

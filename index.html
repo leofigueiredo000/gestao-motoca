@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestão de Entregas - Delivery</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <h1>Gestão de Entregas</h1>
+
+    <div class="controls">
+      <label for="novaEntrega">Descrição da nova entrega:</label>
+      <input
+        type="text"
+        id="novaEntrega"
+        placeholder="Descrição da nova entrega"
+      />
+
+      <label for="valorEntrega">Valor da entrega (R$):</label>
+      <input
+        type="number"
+        id="valorEntrega"
+        placeholder="Valor R$"
+        step="0.01"
+        min="0"
+      />
+
+      <label for="formaPagamento">Forma de Pagamento:</label>
+      <select id="formaPagamento" title="Forma de Pagamento">
+        <option value="Dinheiro">Dinheiro</option>
+        <option value="Cartão">Cartão de Crédito</option>
+      </select>
+
+      <label for="statusEntrega">Status da Entrega:</label>
+      <select id="statusEntrega" title="Status da Entrega">
+        <option value="pendente">Pendente</option>
+        <option value="andamento">Em andamento</option>
+        <option value="concluida">Concluída</option>
+      </select>
+
+      <label for="horaEntrega">Hora da Entrega:</label>
+      <input type="time" id="horaEntrega" />
+
+      <label for="estaPago">
+        <input type="checkbox" id="estaPago" /> Pago
+      </label>
+
+      <button id="btnAdicionarEntrega">Adicionar Entrega</button>
+      <button id="btnAdicionarMotoqueiro">Adicionar Motoqueiro</button>
+      <button id="btnLimparTudo">Limpar Tudo</button>
+    </div>
+
+    <div class="filters">
+      <label for="filtroStatus">Filtrar por Status:</label>
+      <select id="filtroStatus" title="Filtrar por Status">
+        <option value="todos">Todos os status</option>
+        <option value="pendente">Pendente</option>
+        <option value="andamento">Em andamento</option>
+        <option value="concluida">Concluída</option>
+      </select>
+
+      <label for="filtroPagamento">Filtrar por Forma de Pagamento:</label>
+      <select id="filtroPagamento" title="Filtrar por Forma de Pagamento">
+        <option value="todos">Todas formas</option>
+        <option value="Dinheiro">Dinheiro</option>
+        <option value="Cartão">Cartão</option>
+      </select>
+
+      <label for="filtroPago">Filtrar por Pagamento:</label>
+      <select id="filtroPago" title="Filtrar por Pagamento">
+        <option value="todos">Todos</option>
+        <option value="pago">Pago</option>
+        <option value="nao-pago">Não pago</option>
+      </select>
+
+      <button id="btnAplicarFiltros">Aplicar Filtros</button>
+      <button id="btnLimparFiltros">Limpar Filtros</button>
+    </div>
+
+    <div class="container">
+      <div
+        class="entregas"
+        id="entregas"
+        ondrop="drop(event)"
+        ondragover="allowDrop(event)"
+      >
+        <h3>Entregas Disponíveis</h3>
+      </div>
+
+      <div id="motoqueiros" class="container"></div>
+    </div>
+
+    <script src="javascript/script.js"></script>
+  </body>
+</html>
