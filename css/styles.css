@@ -114,17 +114,16 @@ button:hover {
   padding: 10px;
   border-radius: 8px;
   cursor: grab;
-   /* Padrão */
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
   display: flex;
+  flex-direction: column; /* Alinha os elementos verticalmente */
   justify-content: space-between;
-  align-items: center;
-  gap: 5px;
+  gap: 10px; /* Espaçamento entre os elementos */
   transition: transform 0.2s, opacity 0.2s;
   width: 120px; /* Define uma largura fixa para cada entrega */
-  min-height: 50px; /* Define uma altura mínima para cada entrega */
+  min-height: 100px; /* Aumenta a altura mínima para acomodar os botões */
 }
 
 .entrega.dragging {
@@ -194,7 +193,10 @@ button:hover {
 
 .entrega-actions {
   display: flex;
-  gap: 5px;
+  justify-content: space-between; /* Distribui os botões uniformemente */
+  gap: 5px; /* Espaçamento entre os botões */
+  align-items: center;
+  margin-top: auto; /* Garante que os botões fiquem na parte inferior */
 }
 
 .btn-editar {

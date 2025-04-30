@@ -120,7 +120,10 @@ function atualizarBadgesETotais() {
 
     if (badge) badge.textContent = entregasMotoFiltradas.length;
     if (total) {
-      const valorTotal = entregasMotoFiltradas.reduce((sum, e) => sum + e.valor, 0);
+      const valorTotal = entregasMotoFiltradas.reduce(
+        (sum, e) => sum + e.valor,
+        0
+      );
       total.textContent = `R$ ${valorTotal.toFixed(2)}`;
     }
   });
