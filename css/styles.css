@@ -80,6 +80,12 @@ button:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
+#motoqueiros {
+  display: flex;
+  flex-direction: column; /* Motoqueiros ficam um embaixo do outro */
+  gap: 20px; /* Espaçamento entre os blocos de motoqueiros */
+}
+
 .entregas h3 {
   text-align: center;
   color: #555;
